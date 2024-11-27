@@ -17,9 +17,11 @@ const Navbar = () => {
 
       <div>
         <ul className="flex space-x-6">
-          <li className="text-black hover:text-gray-300 cursor-pointer">
-            Exams
-          </li>
+          <Link to="/exams">
+            <li className="text-black hover:text-gray-300 cursor-pointer">
+              Exams
+            </li>
+          </Link>
           <li className="text-black hover:text-gray-300 cursor-pointer">
             Upload
           </li>

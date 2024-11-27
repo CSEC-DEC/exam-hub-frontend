@@ -14,8 +14,8 @@ const Dashboard = () => {
         </p>
       </header>
 
-      <Link to="/exams">
-        <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 gap-6 text-center">
+      <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 gap-6 text-center">
+        <Link to="/exams">
           <div className="bg-white p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-semibold text-gray-700 mb-2">
               Browse Exams
@@ -24,22 +24,26 @@ const Dashboard = () => {
               Find exams by course, instructor, or type.
             </p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold text-gray-700 mb-2">
-              Upload Exams
-            </h2>
-            <p className="text-gray-500">
-              Contribute by sharing your past exams.
-            </p>
-          </div>
+        </Link>
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold text-gray-700 mb-2">
+            Upload Exams
+          </h2>
+          <p className="text-gray-500">
+            Contribute by sharing your past exams.
+          </p>
         </div>
-      </Link>
+      </div>
 
       {/* Footer Section */}
       <footer className="mt-12 text-gray-500 text-sm">
         <p>
-          Developed by
-          <Link target="_blank" to="https://t.me/decCoders">
+          Developed by{" "}
+          <Link
+            target="_blank"
+            to="https://t.me/decCoders"
+            className="text-blue-600"
+          >
             Decoders
           </Link>
         </p>

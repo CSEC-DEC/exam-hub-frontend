@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FaThumbsUp } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const Exams = () => {
   const [exams, setExams] = useState([]);
@@ -30,7 +31,7 @@ const Exams = () => {
             <p className="text-gray-600 mb-4">{exam.code}</p>
             {/* Overlapping Photos */}
             <div className="relative w-full h-28 mb-4">
-              {exam.photos?.slice(0, 7).map((photoUrl, i) => (
+              {exam.photos?.slice(0, 6).map((photoUrl, i) => (
                 <img
                   key={i}
                   src={photoUrl}
@@ -52,7 +53,6 @@ const Exams = () => {
             </div>
 
             <div className="mt-auto w-full flex items-center justify-between pt-4">
-              {/* Likes Section */}
               <div className="flex items-center">
                 <FaThumbsUp className="text-blue-500 mr-2" size={20} />
                 <span className="text-gray-800 font-medium">
@@ -60,11 +60,12 @@ const Exams = () => {
                 </span>
               </div>
 
-              {/* Details Button */}
               <div>
-                <button className="border border-gray-950 py-2 px-6 text-blue-500 font-medium hover:underline">
-                  Details
-                </button>
+                <Link to={`/exams/${exam._id}`}>
+                  <button className="border border-gray-950 py-2 px-6 text-blue-500 font-medium hover:underline">
+                    Details
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
