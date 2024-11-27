@@ -8,7 +8,7 @@ const Exams = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8800/exams")
+      .get("https://exam-hub-backend.onrender.com/exams")
       .then((res) => {
         setExams(res.data);
       })

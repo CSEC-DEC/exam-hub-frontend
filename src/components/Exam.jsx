@@ -19,7 +19,7 @@ const Exam = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8800/exam/${examId}`)
+      .get(`https://exam-hub-backend.onrender.com/exam/${examId}`)
       .then((res) => {
         setExam(res.data);
       })
@@ -52,27 +52,22 @@ const Exam = () => {
           <div className="relative w-full flex flex-wrap justify-center gap-4 p-4">
             {exam.photos.map((photoUrl, i) => (
               <div key={i} className="relative w-48 h-48">
-                {/* Photo */}
                 <img
                   src={photoUrl}
                   alt={`Photo ${i}`}
                   className="w-full h-full object-cover rounded-lg"
                 />
 
-                {/* Buttons Overlay */}
                 <div className="absolute bottom-0 w-full bg-opacity-50 flex items-center justify-around space-x-4 p-2 rounded-b-lg">
-                  {/* View Button */}
                   <button
                     onClick={() => setFullScreenPhoto(photoUrl)}
                     className="bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600"
                   >
                     <FaEye size={16} />
                   </button>
-
-                  {/* Download Button */}
                   <a
                     href={photoUrl}
-                    download={`Photo-${i}`}
+                    download
                     className="bg-green-500 text-white p-2 rounded-full hover:bg-green-600"
                   >
                     <FaFileDownload size={16} />
@@ -82,7 +77,7 @@ const Exam = () => {
             ))}
           </div>
 
-          {/* Full-Screen Modal */}
+          {/* full screen photo display */}
           {fullScreenPhoto && (
             <div
               className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
@@ -98,7 +93,6 @@ const Exam = () => {
         </div>
       )}
 
-      {/* Likes Section */}
       <div className="flex items-center justify-center mt-4">
         <FaThumbsUp className="text-blue-500 mr-2" size={24} />
         <span className="text-gray-800 text-xl font-medium">
