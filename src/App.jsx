@@ -4,10 +4,12 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Exams from "./pages/Exams";
 import Exam from "./components/Exam";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="login" element={<Login />} />

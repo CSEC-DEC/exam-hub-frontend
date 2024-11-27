@@ -37,7 +37,12 @@ const Dashboard = () => {
 
       {/* Footer Section */}
       <footer className="mt-12 text-gray-500 text-sm">
-        <p>&copy; 2024 Exam Hub. All rights reserved.</p>
+        <p>
+          Developed by
+          <Link target="_blank" to="https://t.me/decCoders">
+            Decoders
+          </Link>
+        </p>
       </footer>
     </div>
   );
