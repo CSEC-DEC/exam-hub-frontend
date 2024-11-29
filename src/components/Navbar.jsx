@@ -22,9 +22,11 @@ const Navbar = () => {
               Exams
             </li>
           </Link>
-          <li className="text-black hover:text-gray-300 cursor-pointer">
-            Upload
-          </li>
+          <Link to="/upload">
+            <li className="text-black hover:text-gray-300 cursor-pointer">
+              Upload
+            </li>
+          </Link>
         </ul>
       </div>
     </nav>
