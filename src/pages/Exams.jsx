@@ -5,6 +5,12 @@ import { Link } from "react-router-dom";
 
 const Exams = () => {
   const [exams, setExams] = useState([]);
+  const [filters, setFilters] = useState({
+    name: "",
+    code: "",
+    instructor: "",
+    type: "",
+  });
 
   useEffect(() => {
     axios
@@ -17,10 +23,72 @@ const Exams = () => {
       });
   }, []);
 
+  // Filtered exams based on all fields
+  const filteredExams = exams.filter((exam) => {
+    return (
+      (!filters.name ||
+        exam.name?.toLowerCase().includes(filters.name.toLowerCase())) &&
+      (!filters.code ||
+        exam.code?.toLowerCase().includes(filters.code.toLowerCase())) &&
+      (!filters.instructor ||
+        exam.instructor
+          ?.toLowerCase()
+          .includes(filters.instructor.toLowerCase())) &&
+      (!filters.type || exam.type === filters.type)
+    );
+  });
+
+  // Update filters
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 py-8">
+      <div className="max-w-6xl mx-auto px-4 mb-8 grid gap-4 sm:grid-cols-4">
+        <input
+          type="text"
+          name="name"
+          placeholder="Filter by Exam Title"
+          value={filters.name}
+          onChange={handleFilterChange}
+          className="p-3 border border-gray-300 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="text"
+          name="code"
+          placeholder="Filter by Course Code"
+          value={filters.code}
+          onChange={handleFilterChange}
+          className="p-3 border border-gray-300 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="text"
+          name="instructor"
+          placeholder="Filter by Instructor Name"
+          value={filters.instructor}
+          onChange={handleFilterChange}
+          className="p-3 border border-gray-300 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <select
+          name="type"
+          value={filters.type}
+          onChange={handleFilterChange}
+          className="p-3 border border-gray-300 rounded-lg shadow text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Exam Type (All)</option>
+          <option value="mid">Mid</option>
+          <option value="final">Final</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
       <div className="max-w-6xl mx-auto px-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {exams.map((exam, index) => (
+        {filteredExams.map((exam, index) => (
           <div
             key={index}
             className="exam-card bg-white rounded-lg shadow-lg p-6 flex flex-col items-start"
@@ -28,8 +96,17 @@ const Exams = () => {
             <h1 className="text-xl font-semibold text-gray-800 mb-2">
               {exam.name}
             </h1>
-            <p className="text-gray-600 mb-4">{exam.code}</p>
-            {/* Overlapping Photos */}
+            <div className="flex justify-between items-center w-full mb-2">
+              <p className="text-gray-600">Code: {exam.code}</p>
+              <p className="text-gray-600 px-2 py-1 bg-green-200 rounded-sm text-sm font-medium">
+                {exam.type}
+              </p>
+            </div>
+
+            <p className="text-gray-600 mb-5">
+              Instructor: {exam.instructor ? exam.instructor : "Not Specified"}
+            </p>
+
             <div className="relative w-full h-28 mb-4">
               {exam.photos?.slice(0, 6).map((photoUrl, i) => (
                 <img
