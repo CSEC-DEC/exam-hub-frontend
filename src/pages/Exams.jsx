@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FaThumbsUp } from "react-icons/fa";
+import { FaThumbsUp, FaFilter } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Exams = () => {
@@ -11,6 +11,7 @@ const Exams = () => {
     instructor: "",
     type: "",
   });
+  const [filterBox, setFilterBox] = useState(false);
 
   useEffect(() => {
     axios
@@ -47,45 +48,62 @@ const Exams = () => {
     }));
   };
 
+  const toggleFilterBox = () => {
+    setFilterBox(!filterBox);
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 py-8">
-      <div className="max-w-6xl mx-auto px-4 mb-8 grid gap-4 sm:grid-cols-4">
-        <input
-          type="text"
-          name="name"
-          placeholder="Filter by Exam Title"
-          value={filters.name}
-          onChange={handleFilterChange}
-          className="p-3 border border-gray-300 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          type="text"
-          name="code"
-          placeholder="Filter by Course Code"
-          value={filters.code}
-          onChange={handleFilterChange}
-          className="p-3 border border-gray-300 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          type="text"
-          name="instructor"
-          placeholder="Filter by Instructor Name"
-          value={filters.instructor}
-          onChange={handleFilterChange}
-          className="p-3 border border-gray-300 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <select
-          name="type"
-          value={filters.type}
-          onChange={handleFilterChange}
-          className="p-3 border border-gray-300 rounded-lg shadow text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      <div className="max-w-6xl mx-auto px-4 mb-4 flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-gray-700">Exam List</h1>
+        <button
+          onClick={toggleFilterBox}
+          className="flex items-center bg-blue-500 text-white py-2 px-4 rounded-full shadow-lg hover:bg-blue-600 transition duration-300"
         >
-          <option value="">Exam Type (All)</option>
-          <option value="mid">Mid</option>
-          <option value="final">Final</option>
-          <option value="other">Other</option>
-        </select>
+          <FaFilter className="mr-2" />
+          {filterBox ? "Hide Filters" : "Show Filters"}
+        </button>
       </div>
+
+      {filterBox && (
+        <div className="max-w-6xl mx-auto px-4 mb-8 grid gap-4 sm:grid-cols-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Filter by Exam Title"
+            value={filters.name}
+            onChange={handleFilterChange}
+            className="p-3 border border-gray-300 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="text"
+            name="code"
+            placeholder="Filter by Course Code"
+            value={filters.code}
+            onChange={handleFilterChange}
+            className="p-3 border border-gray-300 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <input
+            type="text"
+            name="instructor"
+            placeholder="Filter by Instructor Name"
+            value={filters.instructor}
+            onChange={handleFilterChange}
+            className="p-3 border border-gray-300 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <select
+            name="type"
+            value={filters.type}
+            onChange={handleFilterChange}
+            className="p-3 border border-gray-300 rounded-lg shadow text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Exam Type (All)</option>
+            <option value="mid">Mid</option>
+            <option value="final">Final</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      )}
 
       <div className="max-w-6xl mx-auto px-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {filteredExams.map((exam, index) => (
